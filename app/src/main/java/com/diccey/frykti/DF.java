@@ -96,7 +96,7 @@ public class DF extends AppCompatActivity {
                                 public void run() {
                                     DataDF.dipp(DF.this);
 
-                                    new CountDownTimer(20000, 1000) {
+                                    new CountDownTimer(15000, 1000) {
 
                                         @Override
                                         public void onTick(long l) {

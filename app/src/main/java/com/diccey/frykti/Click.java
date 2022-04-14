@@ -4,12 +4,16 @@ import static com.diccey.frykti.AppliDF.zzzxz;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.constraintlayout.widget.Group;
+
+import java.util.ArrayList;
 
 public class Click {
 
@@ -17,6 +21,7 @@ public class Click {
     private TextView hsad;
     private Group hhsaq;
     private MainActivity mainActivity;
+    public static ArrayList<Integer> h;
 
     public Click(ImageView imageView, TextView textView, Group group, MainActivity mainActivity) {
         this.udga = imageView;
@@ -26,21 +31,20 @@ public class Click {
     }
 
     public void click(){
+
         udga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        h =new ArrayList<>();
                         for (int i = 0; i < 30; i++) {
-                            int max = 800;
-                            int min = 600;
-                            max -= min;
-                            int z = (int) (Math.random() * ++max) + min;
+
                             hsad.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    hsad.setText("" + z);
+
                                     SetImg.setImg(hhsaq,mainActivity);
                                 }
 
@@ -48,6 +52,8 @@ public class Click {
 
                             try {
                                 Thread.sleep(10);
+
+
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
@@ -55,6 +61,23 @@ public class Click {
                     }
                 }).start();
 
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast toast;
+                                if (h.get(0) == h.get(1)|| h.get(2) == h.get(0)){
+                                    toast = Toast.makeText(mainActivity.getApplicationContext(), "you won", Toast.LENGTH_SHORT);
+                                }else {
+                                    toast = Toast.makeText(mainActivity.getApplicationContext(), "you lost", Toast.LENGTH_SHORT);
+                                }
+                                toast.show();
+                            }
+                        });
+                    }
+                },11);
 
             }
         });
